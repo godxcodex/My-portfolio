@@ -1,227 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Gradient with Particle Effects</title>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.79/build/spline-viewer.js"></script>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Siddharth Jain Portfolio</title>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.79/build/spline-viewer.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
-        body {
-            font-family: 'Inter', 'Helvetica Neue', sans-serif;
-            background-color: #050505;
-            color: white;
-            min-height: 100vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            padding: 5rem;
-        }
+    body {
+      font-family: 'Inter', 'Helvetica Neue', sans-serif;
+      background-color: #050505;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        /* Navigation Bar */
-        .navbar {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            padding: 1rem 0;
-            box-shadow: 0 4px 10px rgba(255, 58, 130, 0.5);
-            z-index: 1000;
-        }
+    .navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(255, 58, 130, 0.5);
+    }
 
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 10rem;
-        }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
 
-        .navbar ul li {
-            display: inline;
-        }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
 
-        .navbar ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 3rem;
+    }
 
-        .navbar ul li a:hover {
-            color: #ff3a82;
-        }
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
 
-        /* Spline 3D Model */
-        .model-container {
-            width: auto;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-        }
+    .nav-links li a:hover {
+      color: #ff3a82;
+    }
 
-        spline-viewer {
-            width: 50vw;
-            height: 100vh;
-        }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+    }
 
-        /* Content */
-        .content-container {
-            position: absolute;
-            left: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            text-align: left;
-            max-width: 500px;
-        }
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      border-radius: 10px;
+    }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #fff, #acacac);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-        }
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
 
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
-        }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+      }
 
-        /* Button with Animation */
-        .glow-on-hover {
-            width: 220px;
-            height: 50px;
-            border: none;
-            outline: none;
-            color: #fff;
-            background: black;
-            cursor: pointer;
-            position: relative;
-            z-index: 0;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(255, 58, 130, 0.5);
-            transition: all 0.3s ease-in-out;
-            animation: glowShadow 2s infinite alternate ease-in-out;
-        }
+      .nav-links.active {
+        max-height: 300px;
+        padding: 1rem 0;
+      }
 
-        @keyframes glowShadow {
-            0% {
-                box-shadow: 0 0 10px rgba(255, 58, 130, 0.6), 0 0 20px rgba(82, 51, 255, 0.6);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(255, 58, 130, 0.8), 0 0 30px rgba(82, 51, 255, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 10px rgba(255, 58, 130, 0.6), 0 0 20px rgba(82, 51, 255, 0.6);
-            }
-        }
+      .nav-links li {
+        text-align: center;
+        padding: 0.5rem 0;
+      }
+    }
 
-        .glow-on-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(255, 58, 130, 1), 0 0 40px rgba(82, 51, 255, 1);
-        }
+    .gradient-text {
+      background: linear-gradient(90deg, #f369ef 6%, #91cfff 100%, #ffaacc 72%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+    }
 
-        /* Responsive Design for Devices */
-        @media (max-width: 991px) {
-            body {
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                overflow-y: auto;
-            }
+    .model-container {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100vh;
+      width: 50vw;
+    }
 
-            .navbar {
-                padding: 0.8rem 0;
-            }
+    spline-viewer {
+      width: 100%;
+      height: 100%;
+    }
 
-            .navbar ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
+    .content-container {
+      position: absolute;
+      left: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 500px;
+    }
 
-            .model-container {
-                position: static;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                height: auto;
-            }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
 
-            spline-viewer {
-                width: 100%;
-                height: 50vh;
-            }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2rem;
+    }
 
-            .content-container {
-                position: static;
-                transform: none;
-                text-align: center;
-                max-width: 90%;
-                padding-top: 2rem;
-            }
+    .glow-on-hover {
+      width: 220px;
+      height: 50px;
+      border: none;
+      outline: none;
+      color: #fff;
+      background: black;
+      cursor: pointer;
+      position: relative;
+      z-index: 0;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px rgba(255, 58, 130, 0.5);
+      transition: all 0.3s ease-in-out;
+      animation: glowShadow 2s infinite alternate ease-in-out;
+    }
 
-            h1 {
-                font-size: 2rem;
-            }
+    @keyframes glowShadow {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 58, 130, 0.6), 0 0 20px rgba(82, 51, 255, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(255, 58, 130, 0.8), 0 0 30px rgba(82, 51, 255, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(255, 58, 130, 0.6), 0 0 20px rgba(82, 51, 255, 0.6);
+      }
+    }
 
-            p {
-                font-size: 1rem;
-            }
+    .glow-on-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(255, 58, 130, 1), 0 0 40px rgba(82, 51, 255, 1);
+    }
 
-            .glow-on-hover {
-                width: 200px;
-                height: 45px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    /* Social Buttons */
+    .social-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .social-buttons {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+    .social-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: white;
+      transition: 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .social-btn:hover {
+      transform: scale(1.1);
+      border-color: #ff3a82;
+      box-shadow: 0 0 10px #ff3a82;
+    }
+
+    .social-btn.linkedin:hover {
+      color: #0A66C2;
+    }
+
+    .social-btn.github:hover {
+      color: #fff;
+    }
+
+    .social-btn.instagram:hover {
+      color: #E1306C;
+    }
+
+    @media (max-width: 768px) {
+      .model-container {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+
+      spline-viewer {
+        height: 50vh;
+      }
+
+      .content-container {
+        position: static;
+        transform: none;
+        text-align: center;
+        max-width: 90%;
+        margin: 2rem auto;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .glow-on-hover {
+        width: 200px;
+        height: 45px;
+        font-size: 0.9rem;
+      }
+    }
+
+    section {
+      padding: 100px 5% 80px;
+    }
+
+    #projects {
+      margin-top: 100vh;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ff3a82;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#achievements">Achievements</a></li>
-        </ul>
-    </nav>
-
-    <div class="model-container">
-        <spline-viewer url="https://prod.spline.design/8D2OZvuDUUjXHxlH/scene.splinecode"></spline-viewer>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">Siddharth</div>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+      </ul>
     </div>
-    
-    <div class="content-container">
-        <h1>Welcome to the Portfolio of Siddharth Jain</h1>
-        <p>A sleek, modern background with soft gradient spheres, subtle movement, and interactive particle effects. Perfect for contemporary web designs.</p>
-        <button class="glow-on-hover" id="explore-btn">Explore More</button>
-    </div>
+  </nav>
 
-    <script>
-        document.getElementById('explore-btn').addEventListener('click', function() {
-            alert('Explore feature is under development!');
-        });
-    </script>
+  <div class="model-container">
+    <spline-viewer url="https://prod.spline.design/8D2OZvuDUUjXHxlH/scene.splinecode"></spline-viewer>
+  </div>
+
+  <div class="content-container" id="about">
+    <h1>
+      Welcome to the Portfolio of <span class="gradient-text">Siddharth Jain</span>
+    </h1>
+    <p>A sleek, modern background with soft gradient spheres, subtle movement, and interactive particle effects. Perfect for contemporary web designs.</p>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <button class="glow-on-hover" onclick="alert('Explore feature is under development!')">Explore More</button>
+
+    <!-- Social Media Buttons -->
+    <div class="social-buttons">
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-btn linkedin">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://github.com/yourprofile" target="_blank" class="social-btn github">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://instagram.com/yourprofile" target="_blank" class="social-btn instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </div>
+  </div>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <p>Showcase of some of my recent work and technical builds.</p>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <p>Details of internships, jobs, or freelance experience I’ve gained so far.</p>
+  </section>
+
+  <section id="achievements">
+    <h2>Achievements</h2>
+    <p>Highlights of awards, recognitions, or notable milestones.</p>
+  </section>
+
+  <script>
+    function toggleMenu() {
+      const navLinks = document.getElementById("nav-links");
+      navLinks.classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
