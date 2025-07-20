@@ -286,6 +286,69 @@
       font-size: 1.1rem;
       color: rgba(255, 255, 255, 0.85);
     }
+    /*card section code*/
+     .card-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      width: 320px;
+      height: 440px;
+      background: #1e1f28;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+      transition: 0.4s ease;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-20px);
+      box-shadow: 0 40px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .card .content {
+      padding: 30px 20px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .card h3 {
+      font-size: 1.8em;
+      margin-top: 60px;
+      background: linear-gradient(90deg, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #aaa;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #6b8dbf;
+      color: #171d27;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(168, 85, 247, 0.5);
+    }
+
+    .card a:hover {
+      background: transparent;
+      color: #6b8dbf;
+      border: 1px solid #6b8dbf;
+    }
   </style>
 </head>
 <body>
@@ -334,9 +397,36 @@
   </div>
 
   <section id="projects">
-    <h2>Projects</h2>
-    <p>Showcase of some of my recent work and technical builds.</p>
-  </section>
+  <h2>Projects</h2>
+  <p>Showcase of some of my recent work and technical builds.</p>
+
+  <div class="card-container">
+    <div class="card">
+      <div class="content">
+        <h3>Frontend Dev</h3>
+        <p>I design beautiful, responsive websites using HTML, CSS, JavaScript, and React. Focused on UI/UX.</p>
+        <a href="#">Learn More</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="content">
+        <h3>Backend Dev</h3>
+        <p>I build scalable backend systems with Node.js, Express, MongoDB and RESTful APIs for robust apps.</p>
+        <a href="#">Learn More</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="content">
+        <h3>UI/UX Designer</h3>
+        <p>I craft intuitive user interfaces and seamless experiences with tools like Figma and Adobe XD.</p>
+        <a href="#">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <section id="experience">
     <h2>Experience</h2>
